@@ -84,6 +84,9 @@ export default class TreciaUzduotis extends Component {
       }
     }
     addData();   
+
+    let arr = [];
+    this.setState({duomenys: arr});
     
     Alert.alert("Pranesimas","Priminimas issaugotas");
   }
@@ -134,7 +137,25 @@ export default class TreciaUzduotis extends Component {
 
   onPressSaugoti()
   {
-
+    let rez=0;
+    let i;
+    
+      for (i = 0; i < this.state.duomenys.length; i++) 
+      {
+       if(this.state.duomenys[i].title == this.state.pav)
+       {
+         rez = i+1;
+         break;
+       }
+      }
+    
+      let ob = {
+        pavadinimas: this.state.pav,
+        priminimas: this.state.prim,
+        }
+  
+     AsyncStorage.setItem("Priminimas" + rez, JSON.stringify(ob));
+     Alert.alert("Pranesimas","Pakeitimai issaugoti");
   }
 
   render() {
