@@ -13,6 +13,7 @@ export default class TreciaUzduotis extends Component {
       priminimoTekstas:"",
       count: 0,
       antrasLangas: false,
+      treciasLangas:false,
       duomenys: []
     }
     this.displayAllData();
@@ -89,6 +90,7 @@ export default class TreciaUzduotis extends Component {
 
   onPressVisi()
   {
+    this.setState({treciasLangas: false});
     if(this.state.antrasLangas) this.setState({antrasLangas: false});
     else this.setState({antrasLangas: true});
   }
@@ -111,6 +113,16 @@ export default class TreciaUzduotis extends Component {
   onPressPriminimas()
   {
 
+  }
+
+  onPressIstrinti()
+  {
+
+  }
+
+  onPressSaugoti()
+  {
+    
   }
 
   render() {
@@ -145,6 +157,38 @@ export default class TreciaUzduotis extends Component {
 
        </View>
             );
+    }
+    else if(this.state.treciasLangas)
+    {
+      return (
+
+        <View>
+
+              <TouchableHighlight onPress={this.onPressNaujas.bind(this)}>
+                <View style={stilius.mygtukas}>
+                  <Text style={stilius.mygtukasTekstas}>Grizti atgal</Text>
+               </View>
+              </TouchableHighlight>
+
+              <TouchableHighlight onPress={this.onPressIstrinti.bind(this)}>
+                <View style={stilius.mygtukas}>
+                  <Text style={stilius.mygtukasTekstas}>Istrinti priminima</Text>
+               </View>
+              </TouchableHighlight>
+              
+              <TouchableHighlight onPress={this.onPressSaugoti.bind(this)}>
+                <View style={stilius.mygtukas}>
+                  <Text style={stilius.mygtukasTekstas}>Issaugoti pakeitimus</Text>
+               </View>
+              </TouchableHighlight>
+              
+              <Text style={stilius.tekstasPavadinimo}>{this.state.pav}</Text>          
+               <TextInput
+               style={{height: 40, textAlign:'center', marginTop: 25}}
+               onChangeText={(tekstas) => this.setState({prim: tekstas})}
+               >{this.state.prim}</TextInput>
+       </View>
+      )
     }
     else
     return (
