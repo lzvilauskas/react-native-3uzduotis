@@ -11,7 +11,9 @@ export default class TreciaUzduotis extends Component {
     this.state = {
       pavadinimoTekstas: "",
       priminimoTekstas:"",
-      count: 0
+      count: 0,
+      antrasLangas: false,
+      duomenys: []
     }
  
   }
@@ -61,11 +63,22 @@ export default class TreciaUzduotis extends Component {
 
   onPressVisi()
   {
-
+    if(this.state.antrasLangas) this.setState({antrasLangas: false});
+    else this.setState({antrasLangas: true});
   }
 
   render() {
 
+    if(this.state.antrasLangas)
+    {
+      return (
+        <View style={stilius.containeris}>       
+
+      
+       </View>
+            );
+    }
+    else
     return (
     <View >
           
