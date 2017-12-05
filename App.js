@@ -67,14 +67,40 @@ export default class TreciaUzduotis extends Component {
     else this.setState({antrasLangas: true});
   }
 
+  onPressTrintiVisus()
+  {
+    AsyncStorage.setItem('skaicius', '0');
+    AsyncStorage.setItem('visiPriminimai', ' ');
+    
+    var i;
+  
+    for(i=0; i<25;i++)
+    {
+      AsyncStorage.removeItem("Priminimas"+i);
+    }
+  
+    Alert.alert("Pranesimas","Visi priminimai istrinti");
+  }
+
   render() {
 
     if(this.state.antrasLangas)
     {
       return (
         <View style={stilius.containeris}>       
+         
+         <TouchableHighlight onPress={this.onPressVisi.bind(this)}>
+          <View style={stilius.mygtukas}>
+            <Text style={stilius.mygtukasTekstas}>Kurti nauja priminima</Text>
+          </View>
+        </TouchableHighlight>
 
-      
+        <TouchableHighlight onPress={this.onPressTrintiVisus.bind(this)}>
+          <View style={stilius.mygtukas}>
+            <Text style={stilius.mygtukasTekstas}>Istrinti visus priminimus</Text>
+          </View>
+        </TouchableHighlight>
+
        </View>
             );
     }
