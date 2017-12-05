@@ -132,7 +132,46 @@ export default class TreciaUzduotis extends Component {
 
   onPressIstrinti()
   {
-
+    if(this.state.duomenys.length <2)
+    {
+     this.onPressTrintiVisus();
+     return;
+    }
+   let rez=0;
+   let i;
+   
+     for (i = 0; i < this.state.duomenys.length; i++) 
+     {
+      if(this.state.duomenys[i].title == this.state.pav)
+      {
+        rez = i;
+        break;
+      }
+     }
+ 
+     istrinti  = async () => {
+       try{
+       let txt = await AsyncStorage.getItem('visiPriminimai');
+       let removedTxt = "";
+       let prim = [];
+       prim = txt.split(',');
+       prim.splice(rez, 1);
+ 
+       for (i = 0; i < prim.length-1; i++) 
+        {
+          removedTxt += prim[i] + ",";
+        }
+ 
+        AsyncStorage.setItem('visiPriminimai', removedTxt);
+       }  
+       catch(error)
+       {
+         alert(error);
+       }
+     }    
+     istrinti();
+     
+     Alert.alert("Pranesimas", "Priminimas istrintas");
   }
 
   onPressSaugoti()
