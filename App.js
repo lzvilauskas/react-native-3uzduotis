@@ -49,6 +49,14 @@ export default class TreciaUzduotis extends Component {
   {
     if(this.state.pavadinimoTekstas == "" || this.state.priminimoTekstas == "") return;
     
+    for (i = 0; i < this.state.duomenys.length; i++) 
+    {
+     if(this.state.duomenys[i].title == this.state.pavadinimoTekstas)
+      {
+        Alert.alert("Pranesimas","Toks pavadinimas jau naudojamas");
+       return;
+      }
+    }
   
      addData = async () => {
       try{
