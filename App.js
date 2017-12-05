@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet, TextInput, TouchableHighlight, AsyncStorage, Alert} from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, TextInput, TouchableHighlight, AsyncStorage, Alert, SectionList} from 'react-native';
 
 
 export default class TreciaUzduotis extends Component {
@@ -15,8 +15,34 @@ export default class TreciaUzduotis extends Component {
       antrasLangas: false,
       duomenys: []
     }
- 
+    this.displayAllData();
   }
+
+  displayAllData = async () => {
+    while (true){
+     try{
+     let txt = await AsyncStorage.getItem('visiPriminimai');
+     let res = txt.split(",");
+     
+     var i;
+     var array = [];
+     var arrItem="";
+
+    for (i = 0; i < res.length-1; i++) {
+         let prim = await AsyncStorage.getItem(res[i]);
+         let parsePrim = JSON.parse(prim);
+         arrItem = '{"title":"'+parsePrim.pavadinimas+'",'+'"data":[{"key":"' + parsePrim.priminimas+'"}]}';
+         array.push(JSON.parse(arrItem));
+     }
+     
+     this.setState({duomenys: array});
+     }
+     catch(error)
+     {
+       //alert(error);
+     } 
+    }
+}
 
   onPressAdd()
   {
@@ -82,6 +108,11 @@ export default class TreciaUzduotis extends Component {
     Alert.alert("Pranesimas","Visi priminimai istrinti");
   }
 
+  onPressPriminimas()
+  {
+
+  }
+
   render() {
 
     if(this.state.antrasLangas)
@@ -100,6 +131,17 @@ export default class TreciaUzduotis extends Component {
             <Text style={stilius.mygtukasTekstas}>Istrinti visus priminimus</Text>
           </View>
         </TouchableHighlight>
+        
+        <SectionList
+        sections={this.state.duomenys}
+        renderItem={ ({item}) => <Text style={stilius.tekstasPriminimo}>{item.key}</Text> }
+        renderSectionHeader={ ({section}) => <TouchableHighlight onPress={this.onPressPriminimas.bind(this, section.title)}>
+                                 <View >
+                                 <Text style={stilius.tekstasPavadinimo}>{section.title}</Text>
+                                 </View>
+                                 </TouchableHighlight> }
+        >
+        </SectionList>
 
        </View>
             );
@@ -153,6 +195,19 @@ const stilius = StyleSheet.create({
     mygtukasTekstas: {
       padding: 10,
       color: 'black'
+    },
+    tekstasPavadinimo: {
+      marginTop: 10,
+      fontWeight: 'bold',
+      fontSize:20,
+      textAlign:"left",  
+      borderColor:"#7FFFD4", 
+      color:"black"
+    },
+    tekstasPriminimo: {
+     textAlign:"left",  
+     borderColor:"#7FFFD4", 
+     color:"black"
     }
 })
 
