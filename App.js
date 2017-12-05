@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet, TextInput, TouchableHighlight} from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, TextInput, TouchableHighlight, AsyncStorage} from 'react-native';
 
 
 export default class TreciaUzduotis extends Component {
  
   constructor(){
     super();
+    AsyncStorage.setItem('skaicius', '0');
+    AsyncStorage.setItem('visiPriminimai', ' ');
     this.state = {
       pavadinimoTekstas: "",
       priminimoTekstas:""
