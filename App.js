@@ -110,9 +110,21 @@ export default class TreciaUzduotis extends Component {
     Alert.alert("Pranesimas","Visi priminimai istrinti");
   }
 
-  onPressPriminimas()
+  onPressPriminimas(raktas)
   {
-
+    this.setState({antrasLangas: false});
+    this.setState({treciasLangas: true});
+    this.setState({pav: raktas});
+    
+    let i;
+  
+    for (i = 0; i < this.state.duomenys.length; i++) 
+    {
+     if(this.state.duomenys[i].title == raktas)
+     {
+      this.setState({prim: this.state.duomenys[i].data[0].key});
+     }
+    }
   }
 
   onPressIstrinti()
@@ -122,7 +134,7 @@ export default class TreciaUzduotis extends Component {
 
   onPressSaugoti()
   {
-    
+
   }
 
   render() {
@@ -164,7 +176,7 @@ export default class TreciaUzduotis extends Component {
 
         <View>
 
-              <TouchableHighlight onPress={this.onPressNaujas.bind(this)}>
+              <TouchableHighlight onPress={this.onPressVisi.bind(this)}>
                 <View style={stilius.mygtukas}>
                   <Text style={stilius.mygtukasTekstas}>Grizti atgal</Text>
                </View>
